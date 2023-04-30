@@ -22,7 +22,7 @@ jobs:
         with:
           arguments: build
           build-root-directory: app
-      - #name: Execute Gradle build
+      #- #name: Execute Gradle build
         #run: cd app/ && ./gradlew build
 
       - name: Test & publish code coverage
