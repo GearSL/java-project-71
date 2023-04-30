@@ -32,5 +32,5 @@ jobs:
         with:
           # The report file must be there, otherwise Code Climate won't find it
           workingDirectory: app/
-          coverageCommand: ./app/gradlew test
+          coverageCommand: ./gradlew test
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco

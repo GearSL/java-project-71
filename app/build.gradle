@@ -2,6 +2,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'jacoco'
+    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 group = 'hexlet.code'
@@ -29,6 +30,25 @@ compileJava {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    testlogger {
+        theme 'standard-parallel'
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped true
+        showFailed true
+        showOnlySlow false
+        showStandardStreams false
+        showPassedStandardStreams true
+        showSkippedStandardStreams true
+        showFailedStandardStreams true
+        logLevel 'lifecycle'
+    }
 }
 jacocoTestReport {
     dependsOn test
