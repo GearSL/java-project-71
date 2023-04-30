@@ -16,5 +16,10 @@ clear:
 test:
 	./gradlew test
 
+check:
+	./gradlew check
+
 tasks:
 	./gradlew tasks
+
+.PHONY: build

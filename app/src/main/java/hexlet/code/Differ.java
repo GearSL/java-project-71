@@ -9,8 +9,8 @@ import java.util.SortedMap;
 public class Differ {
     public static String generate(String file1, String file2) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        SortedMap<String, Object> firstJsonMap = mapper.readValue(file1, new TypeReference<>(){});
-        SortedMap<String, Object> secondJsonMap = mapper.readValue(file2, new TypeReference<>(){});
+        SortedMap<String, Object> firstJsonMap = mapper.readValue(file1, new TypeReference<>() { });
+        SortedMap<String, Object> secondJsonMap = mapper.readValue(file2, new TypeReference<>() { });
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{\n");
