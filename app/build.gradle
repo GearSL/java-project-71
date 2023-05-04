@@ -21,6 +21,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     implementation 'info.picocli:picocli:4.7.3'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.0'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.0'
 }
 
 compileJava {
