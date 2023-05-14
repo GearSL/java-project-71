@@ -23,7 +23,6 @@ public class Parser {
         if (filePath.endsWith(JSON)) {
             ObjectMapper jsonMapper = new ObjectMapper();
             result = jsonMapper.readValue(fileContent, new TypeReference<>() { });
-            System.out.println("JSON RESULT:" + result.toString());
         } else if (filePath.endsWith(YAML)) {
             ObjectMapper yamlMapper = new YAMLMapper();
             result = yamlMapper.readValue(fileContent, new TypeReference<>() { });

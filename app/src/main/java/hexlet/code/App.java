@@ -3,6 +3,8 @@ package hexlet.code;
 import picocli.CommandLine;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+
+import java.util.LinkedHashMap;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true, version = "checksum 4.0",
@@ -26,7 +28,13 @@ public class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println(Differ.generate(firstFilePath, secondFilePath));
+        LinkedHashMap<String, String> diff = Differ.generate(firstFilePath, secondFilePath);
+
+        if (format.equals("plain")) {
+            System.out.println(Formatter.toPlain(diff));
+        } else {
+            System.out.println(Formatter.toStylish(diff));
+        }
 
         return null;
     }
