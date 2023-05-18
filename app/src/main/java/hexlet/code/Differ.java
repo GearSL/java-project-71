@@ -43,6 +43,8 @@ public class Differ {
 
         if (formatName.equals("plain")) {
             return Formatter.toPlain(diff);
+        } else if (formatName.equals("json")) {
+            return Formatter.toJson(diff);
         } else {
             return Formatter.toStylish(diff);
         }
