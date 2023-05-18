@@ -1,12 +1,10 @@
 import hexlet.code.Differ;
-import hexlet.code.Formatter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class DifferTest {
@@ -14,6 +12,8 @@ public class DifferTest {
     private static String secondJsonFilePath;
     private static String firstYamlFilePath;
     private static String secondYamlFilePath;
+    private static final String STYLISH = "stylish";
+    private static final String PLAIN = "plain";
 
 
 
@@ -32,7 +32,7 @@ public class DifferTest {
     }
 
     @Test
-    public void differJsonTest() throws Exception {
+    public void differJsonStylishTest() throws Exception {
         String expect = """
                 {
                    chars1: [a, b, c]
@@ -59,13 +59,12 @@ public class DifferTest {
                  - setting3: true
                  + setting3: none
                 }""";
-        LinkedHashMap<String, String> diff = Differ.generate(firstJsonFilePath, secondJsonFilePath);
-        String actual = Formatter.toStylish(diff);
+        String actual = Differ.generate(firstJsonFilePath, secondJsonFilePath, STYLISH);
         Assertions.assertEquals(expect, actual);
     }
 
     @Test
-    public void differYamlTest() throws Exception {
+    public void differYamlStylishTest() throws Exception {
         String expect = """
                 {
                    chars1: [a, b, c]
@@ -92,8 +91,49 @@ public class DifferTest {
                  - setting3: true
                  + setting3: none
                 }""";
-        LinkedHashMap<String, String> diff = Differ.generate(firstYamlFilePath, secondYamlFilePath);
-        String actual = Formatter.toStylish(diff);
+        String actual = Differ.generate(firstYamlFilePath, secondYamlFilePath, STYLISH);
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    public void differYamlPlainTest() throws Exception {
+        String expect = """
+                Property 'chars2' was updated. From [complex value] to false
+                Property 'checked' was updated. From false to true
+                Property 'default' was updated. From null to [complex value]
+                Property 'id' was updated. From 45 to null
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From 200 to 300
+                Property 'setting3' was updated. From true to 'none'
+                """;
+        String actual = Differ.generate(firstYamlFilePath, secondYamlFilePath, PLAIN);
+        Assertions.assertEquals(expect, actual);
+    }
+
+    @Test
+    public void differJsonPlainTest() throws Exception {
+        String expect = """
+                Property 'chars2' was updated. From [complex value] to false
+                Property 'checked' was updated. From false to true
+                Property 'default' was updated. From null to [complex value]
+                Property 'id' was updated. From 45 to null
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From 200 to 300
+                Property 'setting3' was updated. From true to 'none'
+                """;
+        String actual = Differ.generate(firstJsonFilePath, secondJsonFilePath, PLAIN);
         Assertions.assertEquals(expect, actual);
     }
 }
