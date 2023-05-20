@@ -1,5 +1,8 @@
 package hexlet.code;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +13,8 @@ import java.util.TreeSet;
 public class Differ {
     public static String generate(String firstFilePath, String secondFilePath, String formatName) throws Exception {
 
-        SortedMap<String, Object> firstFileMap = Parser.parse(firstFilePath);
-        SortedMap<String, Object> secondFileMap = Parser.parse(secondFilePath);
+        SortedMap<String, Object> firstFileMap = getParsedData(firstFilePath);
+        SortedMap<String, Object> secondFileMap = getParsedData(secondFilePath);
 
         Set<String> keys = new TreeSet<>(firstFileMap.keySet());
         keys.addAll(secondFileMap.keySet());
@@ -47,6 +50,23 @@ public class Differ {
             return Formatter.toJson(diff);
         } else {
             return Formatter.toStylish(diff);
+        }
+    }
+
+    private static String getFileContent(String filePath) throws Exception {
+        Path normalizedPath = Paths.get(filePath).toAbsolutePath().normalize();
+        if (!Files.exists(normalizedPath)) {
+            throw new Exception("File '" + normalizedPath + "' does not exist");
+        }
+        return Files.readString(normalizedPath);
+    }
+
+    private static SortedMap<String, Object> getParsedData(String filePath) throws Exception {
+        String content = getFileContent(filePath);
+        if (filePath.endsWith(".json")) {
+            return Parser.parse(content, Type.JSON);
+        } else {
+            return Parser.parse(content, Type.YAML);
         }
     }
 }

@@ -1,7 +1,6 @@
 package hexlet.code.formatters;
 
 import hexlet.code.Diff;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +26,11 @@ public class Plain {
                             plainValueFormat(diffEl.getOldValue()), plainValueFormat(diffEl.getNewValue()));
                     stringBuilder.append(diffString);
                 }
-                default -> System.out.println("Some think went wrong");
+                case "unchanged" -> System.out.println("We are not doing anything for this state");
+                default -> throw new RuntimeException("The status is wrong: " + diffEl.getState());
             }
         }
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 
     private static String plainValueFormat(Object value) {

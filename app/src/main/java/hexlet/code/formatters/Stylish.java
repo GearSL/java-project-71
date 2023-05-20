@@ -21,8 +21,9 @@ public class Stylish {
                     stringBuilder.append(" + ").append(diffEl.getKey()).append(": ")
                             .append(diffEl.getNewValue()).append("\n");
                 }
-                default -> stringBuilder.append("   ").append(diffEl.getKey()).append(": ")
+                case "unchanged" -> stringBuilder.append("   ").append(diffEl.getKey()).append(": ")
                         .append(diffEl.getOldValue()).append("\n");
+                default -> throw new RuntimeException("The status is wrong: " + diffEl.getState());
             }
         }
         stringBuilder.append("}");
