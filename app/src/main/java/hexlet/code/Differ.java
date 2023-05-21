@@ -53,6 +53,10 @@ public class Differ {
         }
     }
 
+    public static String generate(String firstFilePath, String secondFilePath) throws Exception {
+        return generate(firstFilePath, secondFilePath, "default");
+    }
+
     private static String getFileContent(String filePath) throws Exception {
         Path normalizedPath = Paths.get(filePath).toAbsolutePath().normalize();
         if (!Files.exists(normalizedPath)) {
