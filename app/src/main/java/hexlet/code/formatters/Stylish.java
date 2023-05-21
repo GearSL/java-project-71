@@ -11,17 +11,17 @@ public class Stylish {
         stringBuilder.append("{\n");
         for (Diff diffEl : diff) {
             switch (diffEl.getState()) {
-                case "removed" -> stringBuilder.append(" - ").append(diffEl.getKey()).append(": ")
+                case "removed" -> stringBuilder.append("  - ").append(diffEl.getKey()).append(": ")
                         .append(diffEl.getOldValue()).append("\n");
-                case "added" -> stringBuilder.append(" + ").append(diffEl.getKey()).append(": ")
+                case "added" -> stringBuilder.append("  + ").append(diffEl.getKey()).append(": ")
                         .append(diffEl.getNewValue()).append("\n");
                 case "updated" -> {
-                    stringBuilder.append(" - ").append(diffEl.getKey()).append(": ")
+                    stringBuilder.append("  - ").append(diffEl.getKey()).append(": ")
                             .append(diffEl.getOldValue()).append("\n");
-                    stringBuilder.append(" + ").append(diffEl.getKey()).append(": ")
+                    stringBuilder.append("  + ").append(diffEl.getKey()).append(": ")
                             .append(diffEl.getNewValue()).append("\n");
                 }
-                case "unchanged" -> stringBuilder.append("   ").append(diffEl.getKey()).append(": ")
+                case "unchanged" -> stringBuilder.append("    ").append(diffEl.getKey()).append(": ")
                         .append(diffEl.getOldValue()).append("\n");
                 default -> throw new RuntimeException("The status is wrong: " + diffEl.getState());
             }
