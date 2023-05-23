@@ -5,17 +5,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeSet;
-
 
 public class Differ {
     public static String generate(String firstFilePath, String secondFilePath, String formatName) throws Exception {
 
         SortedMap<String, Object> firstFileMap = getParsedData(firstFilePath);
         SortedMap<String, Object> secondFileMap = getParsedData(secondFilePath);
+        List<Diff> diff = createDiff(firstFileMap, secondFileMap);
 
+        return Formatter.format(diff, formatName);
+    }
+
+    public static String generate(String firstFilePath, String secondFilePath) throws Exception {
+        return generate(firstFilePath, secondFilePath, "stylish");
+    }
+
+    private static List<Diff> createDiff(Map<String, Object> firstFileMap, Map<String, Object> secondFileMap) {
         Set<String> keys = new TreeSet<>(firstFileMap.keySet());
         keys.addAll(secondFileMap.keySet());
 
@@ -43,18 +52,7 @@ public class Differ {
                 diff.add(new Diff(key, valueFirst, valueSecond, "added"));
             }
         }
-
-        if (formatName.equals("plain")) {
-            return Formatter.toPlain(diff);
-        } else if (formatName.equals("json")) {
-            return Formatter.toJson(diff);
-        } else {
-            return Formatter.toStylish(diff);
-        }
-    }
-
-    public static String generate(String firstFilePath, String secondFilePath) throws Exception {
-        return generate(firstFilePath, secondFilePath, "default");
+        return diff;
     }
 
     private static String getFileContent(String filePath) throws Exception {
@@ -67,10 +65,9 @@ public class Differ {
 
     private static SortedMap<String, Object> getParsedData(String filePath) throws Exception {
         String content = getFileContent(filePath);
-        if (filePath.endsWith(".json")) {
-            return Parser.parse(content, Type.JSON);
-        } else {
-            return Parser.parse(content, Type.YAML);
-        }
+        int dotExtensionIdx = filePath.lastIndexOf(".");
+        String extension = filePath.substring(dotExtensionIdx + 1);
+
+        return Parser.parse(content, extension);
     }
 }

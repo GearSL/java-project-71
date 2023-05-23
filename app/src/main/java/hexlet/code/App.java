@@ -12,7 +12,7 @@ public final class App implements Callable<Integer> {
     private static Boolean help = false;
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private static Boolean version = false;
-    @Option(names = {"-f", "--format"}, paramLabel = "format", defaultValue = "default",
+    @Option(names = {"-f", "--format"}, paramLabel = "format", defaultValue = "stylish",
             description = "output format [default: stylish]")
     private String format;
     @Parameters(paramLabel = "filepath1", description = "path to first file")

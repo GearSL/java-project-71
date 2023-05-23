@@ -7,15 +7,15 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import java.util.SortedMap;
 
 public class Parser {
-    public static SortedMap<String, Object> parse(String content, Type type) throws JsonProcessingException {
+    public static SortedMap<String, Object> parse(String content, String type) throws JsonProcessingException {
 
         SortedMap<String, Object> result;
         switch (type) {
-            case JSON -> {
+            case "json" -> {
                 ObjectMapper jsonMapper = new ObjectMapper();
                 result = jsonMapper.readValue(content, new TypeReference<>() { });
             }
-            case YAML -> {
+            case "yml", "yaml" -> {
                 ObjectMapper yamlMapper = new YAMLMapper();
                 result = yamlMapper.readValue(content, new TypeReference<>() { });
             }
