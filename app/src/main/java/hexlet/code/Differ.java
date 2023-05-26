@@ -11,7 +11,7 @@ public class Differ {
 
         SortedMap<String, Object> firstFileMap = getParsedData(firstFilePath);
         SortedMap<String, Object> secondFileMap = getParsedData(secondFilePath);
-        List<Diff> diff = Utils.createDiff(firstFileMap, secondFileMap);
+        List<Diff> diff = DiffCalculator.createDiff(firstFileMap, secondFileMap);
 
         return Formatter.format(diff, formatName);
     }
